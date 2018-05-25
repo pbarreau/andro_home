@@ -14,6 +14,7 @@ import android.widget.CompoundButton;
 import android.widget.Switch;
 
 import com.sdsmdg.harjot.vectormaster.VectorMasterView;
+import com.sdsmdg.harjot.vectormaster.models.GroupModel;
 import com.sdsmdg.harjot.vectormaster.models.PathModel;
 
 
@@ -21,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
     private Switch switchButton;
     private VectorMasterView my_house;
     private PathModel light;
+    private PathModel light_in;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +30,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         my_house = (VectorMasterView) findViewById(R.id.my_house);
-        light = my_house.getPathModelByName("outline");
+        light = my_house.getPathModelByName("L1");
+        light_in = my_house.getPathModelByName("L1_in");
 
         switchButton = (Switch) findViewById(R.id.switch1);
         switchButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -38,10 +41,13 @@ public class MainActivity extends AppCompatActivity {
                     Log.i("MON SWITCH", "'On'");
                     light.setStrokeColor(Color.parseColor("#ED4337"));
                     light.setFillColor(Color.RED);
+                    light_in.setFillColor(Color.RED);
                 } else {
                     Log.i("MON SWITCH", "'Off'");
                     light.setStrokeColor(Color.GRAY);
                     light.setFillColor(Color.BLACK);
+                    light_in.setFillColor(Color.GRAY);
+
                 }
 
                 my_house.invalidate();
