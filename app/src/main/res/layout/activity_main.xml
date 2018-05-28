@@ -31,6 +31,11 @@
         android:gravity="center"
         app:vector_src="@drawable/ic_protheo_test_4" />
 
+    <net.home.t1.pbarView
+        android:id="@+id/my_house2"
+        android:layout_width="166dp"
+        android:layout_height="152dp"
+        app:vector_src="@drawable/ic_protheo_test_4" />
 
 </android.support.design.widget.CoordinatorLayout>
 
