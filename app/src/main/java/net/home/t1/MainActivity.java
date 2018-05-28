@@ -47,7 +47,8 @@ public class MainActivity extends AppCompatActivity {
         lamienne = (pbarView) findViewById(R.id.my_house2);
         light = my_house.getPathModelByName("L1");
         light_in = my_house.getPathModelByName("L1_in");
-        mScaleDetector = new ScaleGestureDetector(getApplicationContext(),new ScaleListener());
+        //mScaleDetector = new ScaleGestureDetector(getApplicationContext(),new ScaleListener());
+        mScaleDetector = new ScaleGestureDetector(this,new ScaleListener());
 
         light_autre = lamienne.getPathModelByName("L1_in");
 
@@ -111,6 +112,10 @@ public class MainActivity extends AppCompatActivity {
 
         int action = MotionEventCompat.getActionMasked(event);
 
+        mScaleDetector.onTouchEvent(event);
+        return true;
+
+        /*
         switch(action) {
             case (MotionEvent.ACTION_DOWN) :
                 Log.d("Dbg","Action was DOWN");
@@ -131,6 +136,7 @@ public class MainActivity extends AppCompatActivity {
             default :
                 return super.onTouchEvent(event);
         }
+        */
     }
     /*
     @Override
@@ -158,7 +164,8 @@ public class MainActivity extends AppCompatActivity {
 
             // Don't let the object get too small or too large.
             mScaleFactor = Math.max(0.1f, Math.min(mScaleFactor, 5.0f));
-
+            my_house.setScaleX(mScaleFactor);
+            my_house.setScaleY(mScaleFactor);
             my_house.invalidate();
             return true;
         }
