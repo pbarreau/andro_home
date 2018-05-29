@@ -2,6 +2,7 @@ package net.home.t1;
 
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Matrix;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -9,11 +10,13 @@ import android.support.v4.view.MotionEventCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 
@@ -23,16 +26,32 @@ import com.sdsmdg.harjot.vectormaster.models.PathModel;
 
 import static android.view.MotionEvent.INVALID_POINTER_ID;
 
+// https://medium.com/quick-code/pinch-to-zoom-with-multi-touch-gestures-in-android-d6392e4bf52d
+// https://stackoverflow.com/questions/45054908/how-to-add-a-gesture-detector-to-a-view-in-android
+// https://github.com/codepath/android_guides/wiki/Gestures-and-Touch-Events
+// http://codetheory.in/android-gesturedetector/
+
+// https://stackoverflow.com/questions/9398057/android-move-a-view-on-touch-move-action-move
+// https://blahti.wordpress.com/2012/06/26/images-with-clickable-areas/
 
 public class MainActivity extends AppCompatActivity {
+    float dX, dY;
+
     private Switch switchButton;
     private VectorMasterView my_house;
     private pbarView lamienne;
     private PathModel light;
     private PathModel light_in;
     private PathModel light_autre;
+
     private ScaleGestureDetector mScaleDetector;
     private float mScaleFactor = 1.f;
+
+    private GestureDetector mDetector;
+
+    Matrix matrix = new Matrix();
+    Matrix savedMatrix = new Matrix();
+
 
     // The ‘active pointer’ is the one currently moving our object.
     private int mActivePointerId = INVALID_POINTER_ID;
@@ -44,12 +63,18 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         my_house = (VectorMasterView) findViewById(R.id.my_house);
-        lamienne = (pbarView) findViewById(R.id.my_house2);
+        my_house.setBackgroundColor(Color.BLUE);
+
         light = my_house.getPathModelByName("L1");
         light_in = my_house.getPathModelByName("L1_in");
+        mDetector = new GestureDetector(this, new MyGestureListener());
+        //my_house.setOnTouchListener(touchListener);
+
         //mScaleDetector = new ScaleGestureDetector(getApplicationContext(),new ScaleListener());
         mScaleDetector = new ScaleGestureDetector(this,new ScaleListener());
+        // get the gesture detector
 
+        lamienne = (pbarView) findViewById(R.id.my_house2);
         light_autre = lamienne.getPathModelByName("L1_in");
 
         switchButton = (Switch) findViewById(R.id.switch1);
@@ -107,15 +132,17 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+
     @Override
     public boolean onTouchEvent(MotionEvent event){
 
         int action = MotionEventCompat.getActionMasked(event);
 
         mScaleDetector.onTouchEvent(event);
+        mDetector.onTouchEvent(event);
         return true;
+/*
 
-        /*
         switch(action) {
             case (MotionEvent.ACTION_DOWN) :
                 Log.d("Dbg","Action was DOWN");
@@ -138,6 +165,8 @@ public class MainActivity extends AppCompatActivity {
         }
         */
     }
+
+
     /*
     @Override
     public boolean onTouchEvent(MotionEvent ev) {
@@ -166,8 +195,68 @@ public class MainActivity extends AppCompatActivity {
             mScaleFactor = Math.max(0.1f, Math.min(mScaleFactor, 5.0f));
             my_house.setScaleX(mScaleFactor);
             my_house.setScaleY(mScaleFactor);
+
             my_house.invalidate();
             return true;
         }
     }
+
+    private class MyGestureListener extends GestureDetector.SimpleOnGestureListener {
+
+
+        @Override
+        public boolean onDown(MotionEvent event) {
+            Log.d("TAG","onDown: ");
+
+            // don't return false here or else none of the other
+            // gestures will work
+            dX = my_house.getX() - event.getRawX();
+            dY = my_house.getY() - event.getRawY();
+            return true;
+        }
+
+        @Override
+        public boolean onSingleTapConfirmed(MotionEvent e) {
+            Log.i("TAG", "onSingleTapConfirmed: ");
+            return true;
+        }
+        @Override
+        public boolean onDoubleTap(MotionEvent e) {
+            Log.i("TAG", "onDoubleTap: ");
+            return true;
+        }
+
+        @Override
+        public boolean onScroll(MotionEvent e1, MotionEvent e2,
+                                float distanceX, float distanceY) {
+            Log.i("TAG", "onScroll: ");
+            my_house.animate()
+                    .x(e2.getRawX()+dX)
+                    .y(e2.getRawY()+dY)
+                    .setDuration(0)
+                    .start();
+            //my_house.setTranslationY(distanceY);
+            my_house.invalidate();
+            return true;
+        }
+
+        @Override
+        public void onLongPress(MotionEvent e) {
+            Log.i("TAG", "onLongPress: ");
+        }
+
+
+    }
+
+    VectorMasterView.OnTouchListener touchListener = new VectorMasterView.OnTouchListener () {
+        @Override
+        public boolean onTouch(View v, MotionEvent event) {
+            // pass the events to the gesture detector
+            // a return value of true means the detector is handling it
+            // a return value of false means the detector didn't
+            // recognize the event
+            return mDetector.onTouchEvent(event);
+
+        }
+    };
 }
