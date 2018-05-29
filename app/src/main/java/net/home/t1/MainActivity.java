@@ -26,9 +26,10 @@ import com.sdsmdg.harjot.vectormaster.models.PathModel;
 
 import static android.view.MotionEvent.INVALID_POINTER_ID;
 
+// https://github.com/codepath/android_guides/wiki/Gestures-and-Touch-Events
+
 // https://medium.com/quick-code/pinch-to-zoom-with-multi-touch-gestures-in-android-d6392e4bf52d
 // https://stackoverflow.com/questions/45054908/how-to-add-a-gesture-detector-to-a-view-in-android
-// https://github.com/codepath/android_guides/wiki/Gestures-and-Touch-Events
 // http://codetheory.in/android-gesturedetector/
 
 // https://stackoverflow.com/questions/9398057/android-move-a-view-on-touch-move-action-move
@@ -49,9 +50,6 @@ public class MainActivity extends AppCompatActivity {
 
     private GestureDetector mDetector;
 
-    Matrix matrix = new Matrix();
-    Matrix savedMatrix = new Matrix();
-
 
     // The ‘active pointer’ is the one currently moving our object.
     private int mActivePointerId = INVALID_POINTER_ID;
@@ -63,7 +61,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         my_house = (VectorMasterView) findViewById(R.id.my_house);
-        my_house.setBackgroundColor(Color.BLUE);
+        my_house.setBackgroundColor(0x0000FF00);
+        //my_house.invalidate();
 
         light = my_house.getPathModelByName("L1");
         light_in = my_house.getPathModelByName("L1_in");
@@ -74,9 +73,6 @@ public class MainActivity extends AppCompatActivity {
         mScaleDetector = new ScaleGestureDetector(this,new ScaleListener());
         // get the gesture detector
 
-        lamienne = (pbarView) findViewById(R.id.my_house2);
-        light_autre = lamienne.getPathModelByName("L1_in");
-
         switchButton = (Switch) findViewById(R.id.switch1);
         switchButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -86,13 +82,11 @@ public class MainActivity extends AppCompatActivity {
                     light.setStrokeColor(Color.parseColor("#ED4337"));
                     light.setFillColor(Color.RED);
                     light_in.setFillColor(Color.RED);
-                    light_autre.setFillColor(Color.RED);
                 } else {
                     Log.i("MON SWITCH", "'Off'");
                     light.setStrokeColor(Color.GRAY);
                     light.setFillColor(Color.BLACK);
                     light_in.setFillColor(Color.GRAY);
-                    light_autre.setFillColor(Color.GRAY);
                 }
 
                 my_house.update();

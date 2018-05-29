@@ -15,27 +15,22 @@
         android:layout_height="wrap_content"
         android:theme="@style/AppTheme.AppBarOverlay">
 
+        <Switch
+            android:id="@+id/switch1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Switch" />
+
     </android.support.design.widget.AppBarLayout>
 
-    <Switch
-        android:id="@+id/switch1"
-        android:layout_width="352dp"
-        android:layout_height="wrap_content"
-        android:text="Switch" />
 
     <com.sdsmdg.harjot.vectormaster.VectorMasterView
         android:id="@+id/my_house"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="238dp"
         android:layout_gravity="center"
         android:gravity="center"
-        app:vector_src="@drawable/ic_protheo_test_4" />
-
-    <net.home.t1.pbarView
-        android:id="@+id/my_house2"
-        android:layout_width="166dp"
-        android:layout_height="152dp"
-        app:vector_src="@drawable/ic_protheo_test_4" />
+        app:vector_src="@drawable/ic_my_house_1" />
 
 </android.support.design.widget.CoordinatorLayout>
 
