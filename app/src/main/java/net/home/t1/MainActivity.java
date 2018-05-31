@@ -50,7 +50,6 @@ public class MainActivity extends AppCompatActivity {
 
     private GestureDetector mDetector;
 
-
     // The ‘active pointer’ is the one currently moving our object.
     private int mActivePointerId = INVALID_POINTER_ID;
 
@@ -62,16 +61,24 @@ public class MainActivity extends AppCompatActivity {
 
         my_house = (VectorMasterView) findViewById(R.id.my_house);
         my_house.setBackgroundColor(0x0000FF00);
-        //my_house.invalidate();
-
         light = my_house.getPathModelByName("L1");
         light_in = my_house.getPathModelByName("L1_in");
+
         mDetector = new GestureDetector(this, new MyGestureListener());
+        mScaleDetector = new ScaleGestureDetector(this,new ScaleListener());
         //my_house.setOnTouchListener(touchListener);
 
-        //mScaleDetector = new ScaleGestureDetector(getApplicationContext(),new ScaleListener());
-        mScaleDetector = new ScaleGestureDetector(this,new ScaleListener());
-        // get the gesture detector
+
+        my_house.setOnTouchListener(new View.OnTouchListener(){
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                // Interpret MotionEvent data
+                mScaleDetector.onTouchEvent(event);
+                mDetector.onTouchEvent(event);
+                return true;
+            }
+        });
+
 
         switchButton = (Switch) findViewById(R.id.switch1);
         switchButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -126,7 +133,7 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-
+/*
     @Override
     public boolean onTouchEvent(MotionEvent event){
 
@@ -135,50 +142,10 @@ public class MainActivity extends AppCompatActivity {
         mScaleDetector.onTouchEvent(event);
         mDetector.onTouchEvent(event);
         return true;
-/*
 
-        switch(action) {
-            case (MotionEvent.ACTION_DOWN) :
-                Log.d("Dbg","Action was DOWN");
-                return true;
-            case (MotionEvent.ACTION_MOVE) :
-                Log.d("Dbg","Action was MOVE");
-                return true;
-            case (MotionEvent.ACTION_UP) :
-                Log.d("Dbg","Action was UP");
-                return true;
-            case (MotionEvent.ACTION_CANCEL) :
-                Log.d("Dbg","Action was CANCEL");
-                return true;
-            case (MotionEvent.ACTION_OUTSIDE) :
-                Log.d("Dbg","Movement occurred outside bounds " +
-                        "of current screen element");
-                return true;
-            default :
-                return super.onTouchEvent(event);
-        }
-        */
     }
+    */
 
-
-    /*
-    @Override
-    public boolean onTouchEvent(MotionEvent ev) {
-
-        // Get the pointer ID
-        mActivePointerId = ev.getPointerId(0);
-        int pointerIndex = ev.findPointerIndex(mActivePointerId);
-
-        // Let the ScaleGestureDetector inspect all events.
-        mScaleDetector.onTouchEvent(ev);
-
-        // Get the pointer's current position
-        float x = ev.getX(pointerIndex);
-        float y = ev.getY(pointerIndex);
-
-        return true;
-    }
-*/
 
     private class ScaleListener extends ScaleGestureDetector.SimpleOnScaleGestureListener {
         @Override
@@ -242,6 +209,8 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+
+    /*
     VectorMasterView.OnTouchListener touchListener = new VectorMasterView.OnTouchListener () {
         @Override
         public boolean onTouch(View v, MotionEvent event) {
@@ -249,8 +218,12 @@ public class MainActivity extends AppCompatActivity {
             // a return value of true means the detector is handling it
             // a return value of false means the detector didn't
             // recognize the event
-            return mDetector.onTouchEvent(event);
-
+            mScaleDetector.onTouchEvent(event);
+            mDetector.onTouchEvent(event);
+            return true;
         }
+
     };
+    */
+
 }
