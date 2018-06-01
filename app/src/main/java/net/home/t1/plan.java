@@ -36,6 +36,7 @@ public class plan extends Fragment implements View.OnTouchListener{
     private float mScaleFactor = 1.f;
 
     private GestureDetector mDetector;
+    private  MyVectorTouchListener touchListener;
 
 
     public  plan() {
@@ -59,7 +60,8 @@ public class plan extends Fragment implements View.OnTouchListener{
 
         mDetector = new GestureDetector(getContext(),new MyGestureListener());
         mScaleDetector = new ScaleGestureDetector(getContext(),new ScaleListener());
-        MyVectorTouchListener touchListener = new MyVectorTouchListener();
+        //MyVectorTouchListener touchListener = new MyVectorTouchListener();
+        touchListener = new MyVectorTouchListener();
         my_house.setOnTouchListener(touchListener);
         /*
         my_house.setOnTouchListener(new View.OnTouchListener(){
@@ -86,9 +88,10 @@ public class plan extends Fragment implements View.OnTouchListener{
         public boolean onTouch(View v, MotionEvent event);
     }
 
+
     @Override
     public boolean onTouch(View v, MotionEvent event) {
-        mCallBack.onTouch(v,event);
+        //mCallBack.onTouch(v,event);
         return false;
     }
 
@@ -165,7 +168,6 @@ public class plan extends Fragment implements View.OnTouchListener{
 
     }
 
-//    VectorMasterView.OnTouchListener touchListener = new VectorMasterView.OnTouchListener () {
         private class MyVectorTouchListener implements VectorMasterView.OnTouchListener {
         @Override
         public boolean onTouch(View v, MotionEvent event) {
@@ -173,6 +175,7 @@ public class plan extends Fragment implements View.OnTouchListener{
             // a return value of true means the detector is handling it
             // a return value of false means the detector didn't
             // recognize the event
+            mCallBack.onTouch(v,event);
             mScaleDetector.onTouchEvent(event);
             mDetector.onTouchEvent(event);
             return true;
