@@ -74,24 +74,4 @@ public class MainActivity extends AppCompatActivity {
     return true;
     }
 
-
-    /*
-    @Override
-    public boolean onTouchEvent(MotionEvent ev) {
-
-        // Get the pointer ID
-        mActivePointerId = ev.getPointerId(0);
-        int pointerIndex = ev.findPointerIndex(mActivePointerId);
-
-        // Let the ScaleGestureDetector inspect all events.
-        mScaleDetector.onTouchEvent(ev);
-
-        // Get the pointer's current position
-        float x = ev.getX(pointerIndex);
-        float y = ev.getY(pointerIndex);
-
-        return true;
-    }
-*/
-
 }
