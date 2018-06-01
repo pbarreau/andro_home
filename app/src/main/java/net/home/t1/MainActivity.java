@@ -28,6 +28,8 @@ import com.sdsmdg.harjot.vectormaster.models.PathModel;
 import static android.view.MotionEvent.INVALID_POINTER_ID;
 
 // https://github.com/codepath/android_guides/wiki/Gestures-and-Touch-Events
+// http://www.vogella.com/tutorials/AndroidDragAndDrop/article.html
+// https://stackoverflow.com/questions/10839131/implements-vs-extends-when-to-use-whats-the-difference
 
 // https://medium.com/quick-code/pinch-to-zoom-with-multi-touch-gestures-in-android-d6392e4bf52d
 // https://stackoverflow.com/questions/45054908/how-to-add-a-gesture-detector-to-a-view-in-android
