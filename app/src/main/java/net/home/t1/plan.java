@@ -85,13 +85,16 @@ public class plan extends Fragment implements View.OnTouchListener{
     private  OnPlanTouchListener mCallBack;
 
     public  interface OnPlanTouchListener{
-        public boolean onTouch(View v, MotionEvent event);
+        //public boolean onTouch(View v, MotionEvent event);
+        public boolean onDown(MotionEvent event);
+        public boolean onDoubleTap(MotionEvent event);
+        public boolean onSingleTapConfirmed(MotionEvent event);
+        public void onLongPress(MotionEvent event);
     }
 
 
     @Override
     public boolean onTouch(View v, MotionEvent event) {
-        //mCallBack.onTouch(v,event);
         return false;
     }
 
@@ -129,19 +132,22 @@ public class plan extends Fragment implements View.OnTouchListener{
             // gestures will work
             dX = my_house.getX() - event.getRawX();
             dY = my_house.getY() - event.getRawY();
+            //mCallBack.onDown(event);
             return true;
         }
 
         @Override
-        public boolean onSingleTapConfirmed(MotionEvent e) {
+        public boolean onSingleTapConfirmed(MotionEvent event) {
             Log.i("TAG", "onSingleTapConfirmed: ");
             Toast.makeText(getContext(), "Simple Tap", Toast.LENGTH_SHORT).show();
+            mCallBack.onSingleTapConfirmed(event);
             return true;
         }
         @Override
-        public boolean onDoubleTap(MotionEvent e) {
+        public boolean onDoubleTap(MotionEvent event) {
             Log.i("TAG", "onDoubleTap: ");
             Toast.makeText(getContext(), "Double Tap", Toast.LENGTH_SHORT).show();
+            mCallBack.onDoubleTap(event);
             return true;
         }
 
@@ -160,9 +166,10 @@ public class plan extends Fragment implements View.OnTouchListener{
         }
 
         @Override
-        public void onLongPress(MotionEvent e) {
+        public void onLongPress(MotionEvent event) {
             Toast.makeText(getContext(), "Long press", Toast.LENGTH_SHORT).show();
             Log.i("TAG", "onLongPress: ");
+            mCallBack.onLongPress(event);
         }
 
 
@@ -175,7 +182,7 @@ public class plan extends Fragment implements View.OnTouchListener{
             // a return value of true means the detector is handling it
             // a return value of false means the detector didn't
             // recognize the event
-            mCallBack.onTouch(v,event);
+            //mCallBack.onTouch(v,event);
             mScaleDetector.onTouchEvent(event);
             mDetector.onTouchEvent(event);
             return true;

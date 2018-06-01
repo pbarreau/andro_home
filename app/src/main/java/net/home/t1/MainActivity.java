@@ -40,10 +40,34 @@ import static android.view.MotionEvent.INVALID_POINTER_ID;
 public class MainActivity extends AppCompatActivity implements plan.OnPlanTouchListener {
 
     @Override
+    public boolean onDown (MotionEvent event){
+        Log.e(getClass().getSimpleName(),"Down");
+        return true;
+    }
+
+    @Override
+    public boolean onDoubleTap (MotionEvent event){
+        Log.e(getClass().getSimpleName(),"DbTap");
+        return true;
+    }
+
+    @Override
+    public boolean onSingleTapConfirmed (MotionEvent event){
+        Log.e(getClass().getSimpleName(),"STap");
+        return true;
+    }
+    @Override
+    public void onLongPress (MotionEvent event){
+        Log.e(getClass().getSimpleName(),"LPress");
+    }
+
+    /*
+    @Override
     public boolean onTouch(View v, MotionEvent event){
         Log.e(getClass().getSimpleName(),"Touch");
         return true;
     }
+    */
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
