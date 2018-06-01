@@ -19,6 +19,7 @@ import android.view.MenuItem;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.Switch;
+import android.widget.Toast;
 
 import com.sdsmdg.harjot.vectormaster.VectorMasterView;
 import com.sdsmdg.harjot.vectormaster.models.GroupModel;
@@ -40,10 +41,8 @@ public class MainActivity extends AppCompatActivity {
 
     private Switch switchButton;
     private VectorMasterView my_house;
-    private pbarView lamienne;
     private PathModel light;
     private PathModel light_in;
-    private PathModel light_autre;
 
     private ScaleGestureDetector mScaleDetector;
     private float mScaleFactor = 1.f;
@@ -179,11 +178,13 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public boolean onSingleTapConfirmed(MotionEvent e) {
             Log.i("TAG", "onSingleTapConfirmed: ");
+            Toast.makeText(MainActivity.this, "Simple Tap", Toast.LENGTH_SHORT).show();
             return true;
         }
         @Override
         public boolean onDoubleTap(MotionEvent e) {
             Log.i("TAG", "onDoubleTap: ");
+            Toast.makeText(MainActivity.this, "Double Tap", Toast.LENGTH_SHORT).show();
             return true;
         }
 
@@ -203,6 +204,7 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void onLongPress(MotionEvent e) {
+            Toast.makeText(MainActivity.this, "Long press", Toast.LENGTH_SHORT).show();
             Log.i("TAG", "onLongPress: ");
         }
 
