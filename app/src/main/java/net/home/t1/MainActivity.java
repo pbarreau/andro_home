@@ -37,7 +37,13 @@ import static android.view.MotionEvent.INVALID_POINTER_ID;
 // https://blahti.wordpress.com/2012/06/26/images-with-clickable-areas/
 // https://stackoverflow.com/questions/2173936/how-to-set-background-color-of-a-view
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements plan.OnPlanTouchListener {
+
+    @Override
+    public boolean onTouch(View v, MotionEvent event){
+        Log.e(getClass().getSimpleName(),"Touch");
+        return true;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

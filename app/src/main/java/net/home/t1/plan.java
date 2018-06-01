@@ -23,7 +23,7 @@ import com.sdsmdg.harjot.vectormaster.models.PathModel;
 
 import static android.view.MotionEvent.INVALID_POINTER_ID;
 
-public class plan extends Fragment{
+public class plan extends Fragment implements View.OnTouchListener{
     float dX, dY;
 
     private Switch switchButton;
@@ -45,6 +45,7 @@ public class plan extends Fragment{
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View result=inflater.inflate(R.layout.fragment_plan,container,false);
+        result.findViewById(R.id.my_house).setOnTouchListener(this);
         return result;
     }
 
@@ -71,6 +72,32 @@ public class plan extends Fragment{
             }
         });
 */
+    }
+    @Override
+    public void onAttach(Context context){
+        super.onAttach(context);
+        this.createCallBackToParentActivity();
+
+    }
+
+    private  OnPlanTouchListener mCallBack;
+
+    public  interface OnPlanTouchListener{
+        public boolean onTouch(View v, MotionEvent event);
+    }
+
+    @Override
+    public boolean onTouch(View v, MotionEvent event) {
+        mCallBack.onTouch(v,event);
+        return false;
+    }
+
+    private void createCallBackToParentActivity(){
+        try {
+            mCallBack = (OnPlanTouchListener) getActivity();
+        }catch (ClassCastException e){
+            throw new ClassCastException(e.toString()+"implementer OnPlanTouchListener");
+        }
     }
 
     private class ScaleListener extends ScaleGestureDetector.SimpleOnScaleGestureListener {
