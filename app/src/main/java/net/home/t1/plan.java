@@ -28,7 +28,6 @@ public class plan extends Fragment{
 
     private Switch switchButton;
     private VectorMasterView my_house;
-    private pbarView lamienne;
     private PathModel light;
     private PathModel light_in;
     private PathModel light_autre;
