@@ -58,6 +58,7 @@ public class plan extends Fragment{
 
         mDetector = new GestureDetector(getContext(),new MyGestureListener());
         mScaleDetector = new ScaleGestureDetector(getContext(),new ScaleListener());
+        MyVectorTouchListener touchListener = new MyVectorTouchListener();
         my_house.setOnTouchListener(touchListener);
         /*
         my_house.setOnTouchListener(new View.OnTouchListener(){
@@ -104,13 +105,13 @@ public class plan extends Fragment{
         @Override
         public boolean onSingleTapConfirmed(MotionEvent e) {
             Log.i("TAG", "onSingleTapConfirmed: ");
-            //Toast.makeText(MainActivity.this, "Simple Tap", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "Simple Tap", Toast.LENGTH_SHORT).show();
             return true;
         }
         @Override
         public boolean onDoubleTap(MotionEvent e) {
             Log.i("TAG", "onDoubleTap: ");
-            //Toast.makeText(MainActivity.this, "Double Tap", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "Double Tap", Toast.LENGTH_SHORT).show();
             return true;
         }
 
@@ -130,14 +131,15 @@ public class plan extends Fragment{
 
         @Override
         public void onLongPress(MotionEvent e) {
-            //Toast.makeText(MainActivity.this, "Long press", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "Long press", Toast.LENGTH_SHORT).show();
             Log.i("TAG", "onLongPress: ");
         }
 
 
     }
 
-    VectorMasterView.OnTouchListener touchListener = new VectorMasterView.OnTouchListener () {
+//    VectorMasterView.OnTouchListener touchListener = new VectorMasterView.OnTouchListener () {
+        private class MyVectorTouchListener implements VectorMasterView.OnTouchListener {
         @Override
         public boolean onTouch(View v, MotionEvent event) {
             // pass the events to the gesture detector
