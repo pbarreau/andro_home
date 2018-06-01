@@ -4,10 +4,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/fl_detail"
-    tools:context=".detail">
+    tools:context=".Fragments.detail">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
+        android:id="@+id/frag_det_texview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:text="@string/hello_blank_fragment" />

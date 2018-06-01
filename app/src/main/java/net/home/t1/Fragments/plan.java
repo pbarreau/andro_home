@@ -1,4 +1,4 @@
-package net.home.t1;
+package net.home.t1.Fragments;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -20,6 +20,8 @@ import android.widget.Toast;
 
 import com.sdsmdg.harjot.vectormaster.VectorMasterView;
 import com.sdsmdg.harjot.vectormaster.models.PathModel;
+
+import net.home.t1.R;
 
 import static android.view.MotionEvent.INVALID_POINTER_ID;
 

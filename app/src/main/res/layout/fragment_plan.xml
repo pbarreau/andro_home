@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:id="@+id/fl_plan"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".plan">
+    tools:context=".Fragments.plan">
 
     <com.sdsmdg.harjot.vectormaster.VectorMasterView
         android:id="@+id/my_house"

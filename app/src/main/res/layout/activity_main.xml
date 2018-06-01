@@ -7,7 +7,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".Activities.MainActivity">
 
 
 
@@ -33,7 +33,7 @@
 
         <fragment
             android:id="@+id/le_plan"
-            android:name="net.home.t1.plan"
+            android:name="net.home.t1.Fragments.plan"
             android:layout_width="match_parent"
             android:layout_height="285dp"
             android:layout_weight="1" />
@@ -43,7 +43,7 @@
         <fragment
             android:id="@+id/les_details"
             android:layout_weight="2"
-            android:name="net.home.t1.detail"
+            android:name="net.home.t1.Fragments.detail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </LinearLayout>

@@ -1,31 +1,15 @@
-package net.home.t1;
+package net.home.t1.Activities;
 
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Matrix;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.view.MotionEventCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.GestureDetector;
 import android.view.MotionEvent;
-import android.view.ScaleGestureDetector;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.ViewGroup;
-import android.widget.CompoundButton;
-import android.widget.Switch;
 
-import com.sdsmdg.harjot.vectormaster.VectorMasterView;
-import com.sdsmdg.harjot.vectormaster.models.GroupModel;
-import com.sdsmdg.harjot.vectormaster.models.PathModel;
-
-import static android.view.MotionEvent.INVALID_POINTER_ID;
+import net.home.t1.R;
+import net.home.t1.Fragments.detail;
+import net.home.t1.Fragments.plan;
 
 // https://github.com/codepath/android_guides/wiki/Gestures-and-Touch-Events
 
@@ -39,6 +23,9 @@ import static android.view.MotionEvent.INVALID_POINTER_ID;
 
 public class MainActivity extends AppCompatActivity implements plan.OnPlanTouchListener {
 
+    private plan mainFragment;
+    private detail detailFragment;
+
     @Override
     public boolean onDown (MotionEvent event){
         Log.e(getClass().getSimpleName(),"Down");
@@ -48,17 +35,27 @@ public class MainActivity extends AppCompatActivity implements plan.OnPlanTouchL
     @Override
     public boolean onDoubleTap (MotionEvent event){
         Log.e(getClass().getSimpleName(),"DbTap");
+        float x = event.getX();
+        float y = event.getY();
+        sendToDetailFragment(10,x,y);
         return true;
     }
 
     @Override
     public boolean onSingleTapConfirmed (MotionEvent event){
         Log.e(getClass().getSimpleName(),"STap");
+        float x = event.getX();
+        float y = event.getY();
+        sendToDetailFragment(20,x,y);
         return true;
     }
     @Override
     public void onLongPress (MotionEvent event){
         Log.e(getClass().getSimpleName(),"LPress");
+        float x = event.getX();
+        float y = event.getY();
+        sendToDetailFragment(30,x,y);
+
     }
 
     /*
@@ -68,6 +65,14 @@ public class MainActivity extends AppCompatActivity implements plan.OnPlanTouchL
         return true;
     }
     */
+
+    private void sendToDetailFragment(int from, float v_x, float v_y){
+        if(detailFragment !=null && detailFragment.isVisible()){
+            detailFragment.updateTextView(from,v_x,v_y);
+        }else{
+            //Intent i = new Intent(getBaseContext(),this,detail.class);
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
